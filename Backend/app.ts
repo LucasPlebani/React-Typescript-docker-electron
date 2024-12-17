@@ -8,11 +8,6 @@ import userRoutes from './routes/userRoutes';
 // Configuration dotenv
 dotenv.config();
 
-// Connection à MongoDB atlas
-mongoose.connect(process.env.MONGODB_URL || '')
-.then(() => console.log('Connexion à MongoDB réussie !'))
-.catch(() => console.log('Connexion à MongoDB échouée !'));
-
 const app = express();
 
 // CORS
