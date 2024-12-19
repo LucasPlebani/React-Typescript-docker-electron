@@ -1,21 +1,15 @@
+import ToDoApp from '../Components/assets/ToDoApp_transparent-.png'
+import './styles/navbar.sass'
 
 export default function Navbar() {
     return (
-        <nav className="bg-gray-800 p-4">
-            <div className="container mx-auto flex justify-between items-center">
-                <div className="text-white font-bold text-xl">
-                    TodoList App
-                </div>
-                <div className="space-x-4">
-                    <a href="/" className="text-gray-300 hover:text-white">
-                        Home
-                    </a>
-                    <a href="/tasks" className="text-gray-300 hover:text-white">
-                        Tasks
-                    </a>
-                    <a href="/completed" className="text-gray-300 hover:text-white">
-                        Completed
-                    </a>
+        <nav className="navbar">
+            <div className="navbar__container">
+                <img src={ToDoApp} alt="ToDoApp" className="navbar__logo" />
+                <div className="navbar__links">
+                    <a href="/login">Login</a>
+                    <a href="/tasks">Todo</a>
+                    <a href="/kanban">Kanban</a>
                 </div>
             </div>
         </nav>

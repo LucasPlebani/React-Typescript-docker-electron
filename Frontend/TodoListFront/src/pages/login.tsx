@@ -1,5 +1,5 @@
 import { useState } from 'react';
-
+//import ToDoApp from '../Components/assets/ToDoApp-.png'
 import './styles/login.sass';
 
 function Login() {
@@ -10,7 +10,6 @@ function Login() {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        // Handle login logic here
         console.log('Login attempt:', formData);
     };
 
@@ -24,8 +23,8 @@ function Login() {
     return (
         <div className="login-container">
             <div className="login-box">
-                <h1>Login</h1>
-                
+                <h1>Login / Inscription</h1>
+                {/* <img src={ ToDoApp } alt="ToDoApp_transparent_" /> */}
                 <form onSubmit={handleSubmit}>
                     <div className="form-fields">
                         <div className="form-group">
@@ -53,7 +52,9 @@ function Login() {
                         </div>
                     </div>
 
-                    <button type="submit">Sign in</button>
+                    <button className='signin-button' type="submit">Se connecter</button>
+
+                    <button className='signup-button' type="submit">Inscription</button>
                 </form>
             </div>
         </div>

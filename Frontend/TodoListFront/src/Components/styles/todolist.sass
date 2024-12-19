@@ -1,0 +1,119 @@
+.todo-container
+  display: flex
+  min-height: 100vh
+  background-color: #f5f5f5
+
+.sidebar
+  width: 250px
+  background-color: #2c3e50
+  color: white
+  padding: 20px
+  
+  h2
+    margin-bottom: 20px
+    font-size: 1.5em
+  
+  nav ul
+    list-style: none
+    padding: 0
+    
+    li
+      margin-bottom: 10px
+      
+      
+      a
+        color: white
+        text-decoration: none
+        padding: 8px 0
+        display: block
+        transition: all 0.3s ease
+        
+        &:hover
+          color: #3498db
+          padding-left: 10px
+
+.main-content
+  flex: 1
+  padding: 30px
+  
+  h1
+    color: #2c3e50
+    margin-bottom: 30px
+
+.todo-input
+  display: flex
+  margin-bottom: 20px
+  
+  input
+    flex: 1
+    padding: 10px
+    border: 1px solid #ddd
+    border-radius: 4px
+    margin-right: 10px
+    
+  button
+    padding: 10px 20px
+    background-color: #3498db
+    color: white
+    border: none
+    border-radius: 4px
+    cursor: pointer
+    
+    &:hover
+      background-color: #2980b9
+
+.todo-list
+  list-style: none
+  padding: 0
+  width: 50%
+  
+  li
+    display: flex
+    align-items: center
+    padding: 15px
+    background-color: white
+    margin-bottom: 10px
+    border-radius: 4px
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1)
+    
+    &.completed span
+      text-decoration: line-through
+      color: #888
+    
+    input[type="checkbox"]
+      margin-right: 15px
+      color: green
+    
+    span
+      flex: 1
+      color: #031626
+    
+    button
+      padding: 5px 10px
+      background-color: #e74c3c
+      color: white
+      border: none
+      border-radius: 4px
+      cursor: pointer
+      
+      &:hover
+        background-color: #c0392b 
+
+.check-button
+  width: 30px
+  height: 30px
+  border: 2px solid #ccc
+  border-radius: 50%
+  background: green
+  cursor: pointer
+  display: flex
+  align-items: center
+  justify-content: center
+  margin: 0 10px
+  padding: 0
+  color: green
+  font-size: 16px
+  
+  &.checked
+    background: #4CAF50
+    border-color: #4CAF50
