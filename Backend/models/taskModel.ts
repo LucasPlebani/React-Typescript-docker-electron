@@ -9,6 +9,7 @@ interface ITask {
     description: string;
     completed: boolean;
     createdAt: Date;
+    userId: string;
 }
 
 // Schéma Mongoose pour les tâches
@@ -28,6 +29,10 @@ const taskSchema = new mongoose.Schema<ITask>({
     createdAt: {
         type: Date,
         default: Date.now
+    },
+    userId: {
+        type: String,
+        required: true
     }
 });
 

@@ -1,0 +1,41 @@
+# Environment variables
+.env
+
+# Node modules
+node_modules/
+Frontend/node_modules/
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# IDE files
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Build files
+dist/
+build/
+Frontend/dist/
+Frontend/build/
+
+# Frontend dependencies
+Frontend/.pnp
+Frontend/.pnp.js
+Frontend/coverage
+Frontend/.next/
+Frontend/out/
+Frontend/.DS_Store
+Frontend/.env.local
+Frontend/.env.development.local
+Frontend/.env.test.local
+Frontend/.env.production.local
+
+# OS files
+.DS_Store
+Thumbs.db 

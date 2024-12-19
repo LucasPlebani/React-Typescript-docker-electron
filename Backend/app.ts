@@ -1,9 +1,9 @@
 import express, { Request, Response, NextFunction } from 'express';
 import bodyParser from 'body-parser';
-import mongoose from 'mongoose';
 import path from 'path';
 import dotenv from 'dotenv';
 import userRoutes from './routes/userRoutes';
+import taskRoutes from './routes/taskRoutes';
 
 // Configuration dotenv
 dotenv.config();
@@ -27,6 +27,7 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 app.use(bodyParser.json());
 
 app.use('/api/auth', userRoutes);
+app.use('/api/tasks', taskRoutes);
 app.use('/images', express.static(path.join(__dirname, 'images'))); // __dirname enregistre et actualise l'appli dans le navigateur
 
 export default app;
