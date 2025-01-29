@@ -1,11 +1,12 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "./styles/login.sass";
+import "./styles/signup.sass";
 
-function Login() {
+function Signup() {
     const [formData, setFormData] = useState({
         email: "",
         password: "",
+        confirmPassword: "",
     });
 
     const [error, setError] = useState<string | null>(null);
@@ -14,27 +15,31 @@ function Login() {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
+        if (formData.password !== formData.confirmPassword) {
+            setError("Les mots de passe ne correspondent pas.");
+            return;
+        }
+
         try {
-            const response = await fetch("http://localhost:3000/api/auth/login", {
+            const response = await fetch("http://localhost:3000/api/auth/signup", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify(formData),
+                body: JSON.stringify({
+                    email: formData.email,
+                    password: formData.password,
+                }),
             });
 
             const data = await response.json();
 
             if (!response.ok) {
-                throw new Error(data.error || "Erreur d'authentification.");
+                throw new Error(data.error || "Une erreur est survenue.");
             }
 
-            // Stocker le token JWT dans le localStorage
-            localStorage.setItem("token", data.token);
-            localStorage.setItem("userId", data.userId);
-
-            alert("Connexion réussie !");
-            navigate("/home"); // Rediriger vers la page principale
+            alert("Inscription réussie !");
+            navigate("/");
         } catch (error) {
             setError(error instanceof Error ? error.message : "Une erreur est survenue.");
         }
@@ -48,9 +53,9 @@ function Login() {
     };
 
     return (
-        <div className="login-container">
-            <div className="login-box">
-                <h1>Connexion</h1>
+        <div className="signup-container">
+            <div className="signup-box">
+                <h1>Inscription</h1>
                 {error && <p className="error-message">{error}</p>}
                 <form onSubmit={handleSubmit}>
                     <div className="form-fields">
@@ -65,7 +70,7 @@ function Login() {
                                 onChange={handleChange}
                             />
                         </div>
-                        
+
                         <div className="form-group">
                             <label htmlFor="password">Mot de passe</label>
                             <input
@@ -77,19 +82,27 @@ function Login() {
                                 onChange={handleChange}
                             />
                         </div>
+
+                        <div className="form-group">
+                            <label htmlFor="confirmPassword">Confirmer le mot de passe</label>
+                            <input
+                                id="confirmPassword"
+                                name="confirmPassword"
+                                type="password"
+                                required
+                                value={formData.confirmPassword}
+                                onChange={handleChange}
+                            />
+                        </div>
                     </div>
 
-                    <button className="signin-button" type="submit">
-                        Se connecter
+                    <button className="form-button" type="submit">
+                        S'inscrire
                     </button>
                 </form>
-
-                <button className="signup-button" onClick={() => navigate("/signup")}>
-                    S'inscrire
-                </button>
             </div>
         </div>
     );
 }
 
-export default Login;
+export default Signup;
