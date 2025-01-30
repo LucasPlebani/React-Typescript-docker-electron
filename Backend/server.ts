@@ -2,7 +2,6 @@ import http from 'http';
 import app from './app';
 import { connectDB } from './config/database';
 
-// Connexion à la base de données
 connectDB();
 
 const normalizePort = (val: string | number): number => {
@@ -31,11 +30,11 @@ const errorHandler = (error: NodeJS.ErrnoException): void => {
     
     switch (error.code) {
         case 'EACCES':
-            console.error(bind + ' requires elevated privileges.');
+            console.error(bind + ' privilèges élevés requis.');
             process.exit(1);
             break;
         case 'EADDRINUSE':
-            console.error(bind + ' is already in use.');
+            console.error(bind + ' est utilisé.');
             process.exit(1);
             break;
         default:
