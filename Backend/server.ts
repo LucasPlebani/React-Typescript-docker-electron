@@ -1,7 +1,9 @@
 import http from 'http';
 import app from './app';
 import { connectDB } from './config/database';
+import cors from 'cors';
 
+app.use(cors());
 // Connexion à la base de données
 connectDB();
 
