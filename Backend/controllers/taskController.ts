@@ -38,10 +38,10 @@ export const createTask = async (req: Request, res: Response, next: NextFunction
     }
 };
 
-// Récupérer toutes les tâches d'un utilisateur
+// Récupére toutes les tâches d'un utilisateur
 export const getTasks = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
-        // Trouver l'utilisateur avec un token valide
+        // Trouve l'utilisateur avec un token valide
         const user = await User.findOne({ token: { $ne: null } }).sort({ _id: -1 });
         
         if (!user) {
@@ -59,10 +59,10 @@ export const getTasks = async (req: Request, res: Response, next: NextFunction):
     }
 };
 
-// Récupérer une tâche spécifique
+// Récupére une tâche spécifique
 export const getOneTask = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
-        // Trouver l'utilisateur avec un token valide
+        // Trouve l'utilisateur avec un token valide
         const user = await User.findOne({ token: { $ne: null } }).sort({ _id: -1 });
         
         if (!user) {
@@ -85,10 +85,10 @@ export const getOneTask = async (req: Request, res: Response, next: NextFunction
     }
 };
 
-// Modifier une tâche
+// Modifie une tâche
 export const updateTask = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
-        // Trouver l'utilisateur avec un token valide
+        // Trouve l'utilisateur avec un token valide
         const user = await User.findOne({ token: { $ne: null } }).sort({ _id: -1 });
         
         if (!user) {
@@ -117,10 +117,10 @@ export const updateTask = async (req: Request, res: Response, next: NextFunction
     }
 };
 
-// Supprimer une tâche
+// Supprime une tâche
 export const deleteTask = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
-        // Trouver l'utilisateur avec un token valide
+        // Trouve l'utilisateur avec un token valide
         const user = await User.findOne({ token: { $ne: null } }).sort({ _id: -1 });
         
         if (!user) {
@@ -144,10 +144,10 @@ export const deleteTask = async (req: Request, res: Response, next: NextFunction
     }
 };
 
-// Marquer une tâche comme complétée/non complétée
+// Marque une tâche comme complétée/non complétée
 export const toggleTaskCompletion = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
-        // Trouver l'utilisateur avec un token valide
+        // Trouve l'utilisateur avec un token valide
         const user = await User.findOne({ token: { $ne: null } }).sort({ _id: -1 });
         
         if (!user) {

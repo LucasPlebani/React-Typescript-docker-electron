@@ -3,7 +3,6 @@ import app from './app';
 import { connectDB } from './config/database';
 import cors from 'cors';
 
-app.use(cors());
 // Connexion à la base de données
 connectDB();
 
@@ -33,11 +32,11 @@ const errorHandler = (error: NodeJS.ErrnoException): void => {
     
     switch (error.code) {
         case 'EACCES':
-            console.error(bind + ' requires elevated privileges.');
+            console.error(bind + ' privilèges élevés requis.');
             process.exit(1);
             break;
         case 'EADDRINUSE':
-            console.error(bind + ' is already in use.');
+            console.error(bind + ' est utilisé.');
             process.exit(1);
             break;
         default:
