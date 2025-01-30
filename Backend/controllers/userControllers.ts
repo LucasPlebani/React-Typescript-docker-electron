@@ -9,9 +9,12 @@ interface AuthRequest extends Request {
         };
     }
 
+    //S'inscrire
 export const signup = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
+        //Hash du mdp
         const hashedPassword = await bcrypt.hash(req.body.password, 10);
+        //Créé un utilisateur
         const user = new User({
             email: req.body.email,
             password: hashedPassword
@@ -24,20 +27,24 @@ export const signup = async (req: Request, res: Response, next: NextFunction): P
     }
 };
 
+//Se connecter
 export const login = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
+        //Trouve l'utilisateur
         const user = await User.findOne({ email: req.body.email });
         if (!user) {
             res.status(401).json({ error: 'Utilisateur non trouvé !' });
             return;
         }
 
+        //Comparaison entre mdp de la BDD et le mdp entré
         const validPassword = await bcrypt.compare(req.body.password, user.password);
         if (!validPassword) {
             res.status(401).json({ error: 'Mot de passe incorrect !' });
             return;
         }
 
+        //Vérifie le token
         const token = jwt.sign(
             { userId: user._id },
             process.env.JWT_SECRET || '',
@@ -57,8 +64,10 @@ export const login = async (req: Request, res: Response, next: NextFunction): Pr
     }
 };
 
+//Se déconnecter 
 export const logout = async (req: AuthRequest, res: Response, next: NextFunction): Promise<void> => {
     try {
+        //Trouve l'utilisateur
         const user = await User.findById(req.auth?.userId);
         if (user) {
             user.token = null;
