@@ -15,7 +15,6 @@ const TodoList: React.FC = () => {
   // Récupérer les tâches depuis le back-end
   const fetchTodos = async () => {
     try {
-      // Récupérer le token depuis le localStorage
       const token = localStorage.getItem('token'); // 'token' est la clé avec laquelle tu as stocké le token
   
       if (!token) {
@@ -26,7 +25,7 @@ const TodoList: React.FC = () => {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}` // Utiliser le token récupéré
+          'Authorization': `Bearer ${token}`, // Utiliser le token récupéré
         },
       });
   
@@ -41,108 +40,115 @@ const TodoList: React.FC = () => {
     }
   };
   
+  // Ajouter une nouvelle tâche
+  const addTodo = async () => {
+    if (inputValue.trim() !== '') {
+      try {
+        const newTodo = {
+          title: inputValue,
+          description: inputValue,
+          completed: false,
+        };
+        const token = localStorage.getItem('token');
+        if (!token) {
+          console.error('Token manquant');
+          return;
+        }
+
+        const response = await fetch('http://localhost:3000/api/tasks', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`,
+          },
+          body: JSON.stringify(newTodo),
+        });
+
+        const data = await response.json();
+        if (response.ok) {
+          console.log('Nouvelle tâche ajoutée:', data); // Vérifie la structure ici
+
+          // Utilisation de _id comme ID pour la tâche ajoutée
+          if (data.task && data.task._id) {
+            const newTask = { ...data.task, id: data.task._id }; // Remplacer _id par id
+            setTodos([...todos, newTask]); // Ajoute la tâche avec l'ID
+            setInputValue('');
+          } else {
+            console.error('Erreur: la tâche n\'a pas d\'ID');
+          }
+        } else {
+          console.error('Erreur lors de l\'ajout de la tâche:', data.error);
+        }
+      } catch (error) {
+        console.error('Erreur de connexion:', error);
+      }
+    }
+  };
+
+  // Supprimer une tâche
+  const deleteTodo = async (id: string) => {
+    console.log("ID de la tâche à supprimer:", id);
   
+    if (!id) {
+      console.error("Erreur: ID de la tâche est indéfini !");
+      return;
+    }
   
- // Ajouter une nouvelle tâche
-const addTodo = async () => {
-  if (inputValue.trim() !== '') {
     try {
-      const newTodo = {
-        title: inputValue,
-        description: inputValue,
-        completed: false,
-      };
-      const token = localStorage.getItem('token'); // Récupérer le token du localStorage
+      const token = localStorage.getItem('token');
+      if (!token) {
+        console.error('Token manquant');
+        return;
+      }
+  
+      const response = await fetch(`http://localhost:3000/api/tasks/${id}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+        },
+      });
+  
+      if (response.ok) {
+        setTodos(todos.filter(todo => todo.id !== id));
+      } else {
+        const textData = await response.text(); 
+        console.error('Erreur lors de la suppression de la tâche:', textData);
+      }
+    } catch (error) {
+      console.error('Erreur de connexion:', error);
+    }
+  };
+  
+  // Marquer une tâche comme complétée
+  const toggleTodo = async (id: string) => {
+    try {
+      const token = localStorage.getItem('token'); 
       if (!token) {
         console.error('Token manquant');
         return;
       }
 
-      const response = await fetch('http://localhost:3000/api/tasks', {
-        method: 'POST',
+      const response = await fetch(`http://localhost:3000/api/tasks/${id}/toggle`, {
+        method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}` // Utiliser le vrai token ici
+          'Authorization': `Bearer ${token}`, 
         },
-        body: JSON.stringify(newTodo),
       });
 
       const data = await response.json();
       if (response.ok) {
-        setTodos([...todos, data.task]);
-        setInputValue('');
+        setTodos(todos.map(todo =>
+          todo.id === id ? { ...todo, completed: !todo.completed } : todo
+        ));
       } else {
-        console.error('Erreur lors de l\'ajout de la tâche:', data.error);
+        console.error('Erreur lors de la mise à jour de la tâche:', data.error);
       }
     } catch (error) {
       console.error('Erreur de connexion:', error);
     }
-  }
-};
-// Supprimer une tâche
-const deleteTodo = async (id: string) => {
-  console.log("ID de la tâche à supprimer:", id); // DEBUG
-
-  if (!id) {
-    console.error("Erreur: ID de la tâche est indéfini !");
-    return;
-  }
-
-  try {
-    const token = localStorage.getItem('token'); 
-    if (!token) {
-      console.error('Token manquant');
-      return;
-    }
-
-    const response = await fetch(`http://localhost:3000/tasks/${id}`, { // <-- Correction de l'URL
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`,
-      },
-    });
-
-    if (response.ok) {
-      setTodos(todos.filter(todo => todo.id !== id));
-    } else {
-      const data = await response.json();
-      console.error('Erreur lors de la suppression de la tâche:', data);
-    }
-  } catch (error) {
-    console.error('Erreur de connexion:', error);
-  }
-};
-
-// Marquer une tâche comme complétée
-const toggleTodo = async (id: string) => {
-  try {
-    const token = localStorage.getItem('token'); // Récupérer le token du localStorage
-    if (!token) {
-      console.error('Token manquant');
-      return;
-    }
-
-    const response = await fetch(`http://localhost:3000/api/tasks/${id}/toggle`, {
-      method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`, // Utiliser le vrai token ici
-      },
-    });
-
-    const data = await response.json();
-    if (response.ok) {
-      setTodos(todos.map(todo => 
-        todo.id === id ? { ...todo, completed: !todo.completed } : todo
-      ));
-    } else {
-      console.error('Erreur lors de la mise à jour de la tâche:', data.error);
-    }
-  } catch (error) {
-    console.error('Erreur de connexion:', error);
-  }
-};
+  };
 
   // Récupérer les tâches lors du chargement du composant
   useEffect(() => {
@@ -177,27 +183,23 @@ const toggleTodo = async (id: string) => {
         </div>
 
         <ul className="todo-list">
-  {todos.map((todo) => (
-    <li key={todo.id || Math.random()} className={todo.completed ? 'completed' : ''}>
-      <span>{todo.title}</span>
-      <button 
-        className={`check-button ${todo.completed ? 'checked' : ''}`}
-        onClick={() => toggleTodo(todo.id)}
-        aria-label={todo.completed ? 'Marquer comme non terminée' : 'Marquer comme terminée'}
-      >
-        {todo.completed ? '✓' : ''}
-      </button>  
-      <button onClick={() => deleteTodo(todo.id)}>Supprimer</button>
-    </li>
-  ))}
-</ul>
-
-             
-            
+          {todos.map((todo) => (
+            <li key={todo.id || Math.random()} className={todo.completed ? 'completed' : ''}>
+              <span>{todo.title}</span>
+              <button 
+                className={`check-button ${todo.completed ? 'checked' : ''}`}
+                onClick={() => toggleTodo(todo.id)}
+                aria-label={todo.completed ? 'Marquer comme non terminée' : 'Marquer comme terminée'}
+              >
+                {todo.completed ? '✓' : ''}
+              </button>
+              <button onClick={() => deleteTodo(todo.id)}>Supprimer</button>
+            </li>
+          ))}
+        </ul>
       </main>
     </div>
   );
 };
 
 export default TodoList;
-
