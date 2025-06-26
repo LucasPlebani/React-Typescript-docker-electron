@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./styles/signup.sass";
+import { API_URL } from "../config"
 
 function Signup() {
+     
     const [formData, setFormData] = useState({
         email: "",
         password: "",
@@ -16,12 +18,14 @@ function Signup() {
         e.preventDefault();
 
         if (formData.password !== formData.confirmPassword) {
-            setError("Les mots de passe ne correspondent pas.");
+            setError("Les mots de passe ne correspondent pas."); 
             return;
         }
 
         try {
-            const response = await fetch("http://localhost:3000/api/auth/signup", {
+            console.log("Envoi des données d'inscription :", formData);
+            const response = await fetch(`${API_URL}/api/auth/signup`, {
+                
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -30,6 +34,7 @@ function Signup() {
                     email: formData.email,
                     password: formData.password,
                 }),
+                
             });
 
             const data = await response.json();

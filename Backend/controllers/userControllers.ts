@@ -11,6 +11,7 @@ interface AuthRequest extends Request {
 
     //S'inscrire
 export const signup = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+      console.log("Requête signup reçue :", req.body);
     try {
         //Hash du mdp
         const hashedPassword = await bcrypt.hash(req.body.password, 10);

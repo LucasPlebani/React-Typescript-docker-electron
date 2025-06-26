@@ -25,7 +25,9 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 });
 
 app.use(bodyParser.json());
-
+app.get('/api/ping', (req, res) => {
+  res.json({ message: 'pong' });
+});
 app.use('/api/auth', userRoutes);
 app.use('/api/tasks', taskRoutes);
 app.use('/images', express.static(path.join(__dirname, 'images'))); // __dirname enregistre et actualise l'appli dans le navigateur

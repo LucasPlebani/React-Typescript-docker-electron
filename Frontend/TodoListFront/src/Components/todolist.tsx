@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './styles/todolist.sass';
+import { API_URL } from '../config'; 
 
 interface Todo {
   id: string;
@@ -21,7 +22,7 @@ const TodoList: React.FC = () => {
         throw new Error('Token manquant');
       }
   
-      const response = await fetch('http://localhost:3000/api/tasks', {
+      const response = await fetch(`${API_URL}/api/tasks`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -55,7 +56,7 @@ const TodoList: React.FC = () => {
           return;
         }
 
-        const response = await fetch('http://localhost:3000/api/tasks', {
+        const response = await fetch(`${API_URL}/api/tasks`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -101,7 +102,7 @@ const TodoList: React.FC = () => {
         return;
       }
   
-      const response = await fetch(`http://localhost:3000/api/tasks/${id}`, {
+      const response = await fetch(`${API_URL}/api/tasks/${id}`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
@@ -129,7 +130,7 @@ const TodoList: React.FC = () => {
         return;
       }
 
-      const response = await fetch(`http://localhost:3000/api/tasks/${id}/toggle`, {
+      const response = await fetch(`${API_URL}/api/tasks/${id}/toggle`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
