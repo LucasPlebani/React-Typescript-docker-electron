@@ -36,10 +36,14 @@ Base de données : MongoDB NoSQL, utilisée pour stocker les données des utilis
 
 Electron : Permet de créer une application de bureau multiplateforme en intégrant le frontend et le backend dans un même package.
 
+
+# sudo apt install make terminal wsl. 
+# make ( + commande)
+
 Prérequis
 Node.js
 MongoDB
-Docker (facultatif, mais recommandé pour l'environnement de développement)
+Docker
 
 Lucas Plebani et Marie-France Fritz
 
