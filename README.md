@@ -25,6 +25,18 @@ Prérequis
 Node.js
 MongoDB
 Docker (facultatif, mais recommandé pour l'environnement de développement)
+Architecture
+Le projet suit une architecture n-tiers, séparant les différentes responsabilités de l'application :
+
+Frontend : Développé avec React, il gère l'interface utilisateur et les interactions avec l'utilisateur.
+Backend : Node.js avec Express, il gère la logique métier, l'authentification et les opérations CRUD sur les tâches.
+Base de données : MongoDB, utilisée pour stocker les données des utilisateurs et des tâches.
+Electron : Permet de créer une application de bureau multiplateforme en intégrant le frontend et le backend dans un même package.
+
+Prérequis
+Node.js
+MongoDB
+Docker (facultatif, mais recommandé pour l'environnement de développement)
 
 Lucas Plebani et Marie-France Fritz
 
