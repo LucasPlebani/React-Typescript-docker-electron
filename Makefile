@@ -1,26 +1,26 @@
-// sudo apt install make terminal wsl. 
-// make commande
+# sudo apt install make terminal wsl. 
+# make commande
 
-docker-build : 
-	docker-compose up --build
+docker-build:
+	@docker-compose up --build
 
-docker-down : 
-	docker-compose down
+docker-down:
+	@docker-compose down
 
-docker-logs :
-	docker-compose logs 
+docker-logs:
+	@docker-compose logs
 
-docker-stop :
-	docker-compose stop
+docker-stop:
+	@docker-compose stop
 
-docker-start :
-	docker-compose start
+docker-start:
+	@docker-compose start
 
-docker-restart :
-	docker-compose restart
+docker-restart:
+	@docker-compose restart
 
-install-electron : 
-	cd electron && npm install
+install-electron:
+	@cd electron && npm install
 
-run-electron :
-	cd electron && npm run start
+run-electron:
+	@cd electron && npm run start
