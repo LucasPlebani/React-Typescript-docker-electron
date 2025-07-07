@@ -1,1 +1,1 @@
-Readme du projet
+![Diagramme UML](/docs/uml/architecture.png)
