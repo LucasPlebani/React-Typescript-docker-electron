@@ -11,7 +11,7 @@
 - Sauvegarde des données avec MongoDB
 
 #Makefile : sudo apt install make terminal wsl. 
-#Entrée de la commande du makefile
+#Make de la commande du makefile
 
 Lucas Plebani et Marie-France Fritz
 
